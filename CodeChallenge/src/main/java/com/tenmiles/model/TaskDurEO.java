@@ -1,5 +1,6 @@
 package com.tenmiles.model;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -33,11 +34,14 @@ public class TaskDurEO {
     @Column(name = "END_TIMESTAMP")
     private long endTimestamp;
 
-    @Column(name = "CREAT_TIME_STMP")
+    @Column(name = "CREAT_TIMESTAMP")
     private Timestamp createTimestamp;
 
-    @Column(name = "UPD_TIME_STMP")
+    @Column(name = "UPD_TIMESTAMP")
     private Timestamp updTimestamp;
+
+    @Column(name = "CURR_DATE")
+    private Date currDate;
 
     /**
      * @return the durId
@@ -142,6 +146,21 @@ public class TaskDurEO {
      */
     public void setUpdTimestamp(Timestamp updTimestamp) {
         this.updTimestamp = updTimestamp;
+    }
+
+    /**
+     * @return the currDate
+     */
+    public Date getCurrDate() {
+        return currDate;
+    }
+
+    /**
+     * @param currDate
+     *            the currDate to set
+     */
+    public void setCurrDate(Date currDate) {
+        this.currDate = currDate;
     }
 
 }

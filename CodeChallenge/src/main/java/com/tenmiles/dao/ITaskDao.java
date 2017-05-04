@@ -1,5 +1,6 @@
 package com.tenmiles.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.tenmiles.dto.Task;
@@ -19,4 +20,6 @@ public interface ITaskDao {
     public TaskEO getTaskDetails(int taskId);
 
     public void toggleStatus(Task task);
+
+    public List<BigDecimal> getDashBoardData(Task task);
 }

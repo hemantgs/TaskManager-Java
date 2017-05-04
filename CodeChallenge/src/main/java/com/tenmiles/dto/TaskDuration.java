@@ -1,13 +1,17 @@
 package com.tenmiles.dto;
 
+import java.util.Date;
+
 public class TaskDuration {
 
     private int taskId;
     private long startTimestamp;
     private long endTimestamp;
     private long duration;
-    private String startDateString;
-    private String endDateString;
+    private String startTimeString;
+    private String endTimeString;
+    private Date currDate;
+    private String timeGap;
 
     /**
      * @return the taskId
@@ -70,33 +74,63 @@ public class TaskDuration {
     }
 
     /**
-     * @return the startDateString
+     * @return the startTimeString
      */
-    public String getStartDateString() {
-        return startDateString;
+    public String getStartTimeString() {
+        return startTimeString;
     }
 
     /**
-     * @param startDateString
-     *            the startDateString to set
+     * @param startTimeString
+     *            the startTimeString to set
      */
-    public void setStartDateString(String startDateString) {
-        this.startDateString = startDateString;
+    public void setStartTimeString(String startTimeString) {
+        this.startTimeString = startTimeString;
     }
 
     /**
-     * @return the endDateString
+     * @return the endTimeString
      */
-    public String getEndDateString() {
-        return endDateString;
+    public String getEndTimeString() {
+        return endTimeString;
     }
 
     /**
-     * @param endDateString
-     *            the endDateString to set
+     * @param endTimeString
+     *            the endTimeString to set
      */
-    public void setEndDateString(String endDateString) {
-        this.endDateString = endDateString;
+    public void setEndTimeString(String endTimeString) {
+        this.endTimeString = endTimeString;
+    }
+
+    /**
+     * @return the currDate
+     */
+    public Date getCurrDate() {
+        return currDate;
+    }
+
+    /**
+     * @param currDate
+     *            the currDate to set
+     */
+    public void setCurrDate(Date currDate) {
+        this.currDate = currDate;
+    }
+
+    /**
+     * @return the timeGap
+     */
+    public String getTimeGap() {
+        return timeGap;
+    }
+
+    /**
+     * @param timeGap
+     *            the timeGap to set
+     */
+    public void setTimeGap(String timeGap) {
+        this.timeGap = timeGap;
     }
 
 }

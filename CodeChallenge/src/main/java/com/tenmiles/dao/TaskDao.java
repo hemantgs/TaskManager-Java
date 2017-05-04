@@ -1,5 +1,6 @@
 package com.tenmiles.dao;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -46,6 +47,7 @@ public class TaskDao implements ITaskDao {
         dur.setEndTimestamp(taskDur.getEndTimestamp());
         dur.setCreateTimestamp(new Timestamp(System.currentTimeMillis()));
         dur.setUpdTimestamp(new Timestamp(System.currentTimeMillis()));
+        dur.setCurrDate(new java.sql.Date(taskDur.getCurrDate().getTime()));
         TaskEO taskEo = entityManager.find(TaskEO.class, taskDur.getTaskId());
         dur.setTaskEo(taskEo);
         entityManager.merge(dur);
@@ -68,6 +70,14 @@ public class TaskDao implements ITaskDao {
         taskEo.setStatus(task.getStatus());
         entityManager.merge(taskEo);
 
+    }
+
+    public List<BigDecimal> getDashBoardData(Task task) {
+        Query query = entityManager.createNativeQuery(
+                "select sum(AGG.DURATION) as Total_Dur from (select * from task_dur where curr_date >=DATE(NOW()) - INTERVAL 7 DAY) AS AGG "
+                        + "where AGG.task_id = :taskId group by AGG.curr_date;");
+        query.setParameter("taskId", task.getTaskId());
+        return query.getResultList();
     }
 
 }

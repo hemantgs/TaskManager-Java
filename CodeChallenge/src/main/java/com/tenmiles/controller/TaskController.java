@@ -1,10 +1,13 @@
 package com.tenmiles.controller;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,16 +60,17 @@ public class TaskController {
     @RequestMapping(value = "/addTaskDuration", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public String addTaskDur(RequestEntity<TaskDuration> taskDurToAdd) {
         TaskDuration req = taskDurToAdd.getBody();
-        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        SimpleDateFormat f = new SimpleDateFormat("HH:mm");
         Date d1 = new Date();
         Date d2 = new Date();
         try {
-            d1 = f.parse(req.getStartDateString());
+            d1 = f.parse(req.getStartTimeString());
             req.setStartTimestamp(d1.getTime());
-            d2 = f.parse(req.getEndDateString());
+            d2 = f.parse(req.getEndTimeString());
             req.setEndTimestamp(d2.getTime());
             long diff = d2.getTime() - d1.getTime();
             req.setDuration(diff);
+            req.setCurrDate(Calendar.getInstance().getTime());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -99,6 +103,19 @@ public class TaskController {
 
         taskdao.toggleStatus(task);
         return "Success";
+    }
+
+    @RequestMapping(value = "/getDashBoardData", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public List<String> getDashBoardData(@RequestBody Task task) {
+
+        List<BigDecimal> dashData = taskdao.getDashBoardData(task);
+        List<String> result = new ArrayList<String>();
+        for (BigDecimal data : dashData) {
+            long hh = TimeUnit.MILLISECONDS.toHours(data.longValue());
+            long mm = TimeUnit.MILLISECONDS.toMinutes(data.longValue()) - TimeUnit.HOURS.toMinutes(hh);
+            result.add(String.valueOf(hh) + ":" + String.valueOf(mm));
+        }
+        return result;
     }
 
 }
