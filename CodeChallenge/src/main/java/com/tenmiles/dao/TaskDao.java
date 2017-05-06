@@ -42,7 +42,6 @@ public class TaskDao implements ITaskDao {
     public void addtaskDur(TaskDuration taskDur) {
         TaskDurEO dur = new TaskDurEO();
         dur.setDuration(taskDur.getDuration());
-
         dur.setStarteTimestamp(taskDur.getStartTimestamp());
         dur.setEndTimestamp(taskDur.getEndTimestamp());
         dur.setCreateTimestamp(new Timestamp(System.currentTimeMillis()));
