@@ -84,7 +84,7 @@ public class Utility {
             long hh = TimeUnit.MILLISECONDS.toHours(data.longValue());
             long mm = TimeUnit.MILLISECONDS.toMinutes(data.longValue())
                     - TimeUnit.HOURS.toMinutes(hh);
-            result.add(String.valueOf(hh) + ":" + String.valueOf(mm));
+            result.add(String.valueOf(hh) + "." + String.valueOf(mm));
         }
         return result;
     }
